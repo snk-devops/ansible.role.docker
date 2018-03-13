@@ -61,3 +61,10 @@
     force: yes
   tags:
     - docker
+- name: 'Docker | User | Allow unprivileged access'
+  user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+  tags:
+    - docker
