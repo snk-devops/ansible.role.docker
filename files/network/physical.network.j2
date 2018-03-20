@@ -1,8 +1,0 @@
-[Match]
-Name={{ ansible_default_ipv4.alias }}
-
-[Network]
-DHCP=no
-Address={{ ansible_default_ipv4.address }}/{{ full_net | ipaddr('prefix') }}
-Gateway={{ ansible_default_ipv4.gateway }}
-IPForward=yes

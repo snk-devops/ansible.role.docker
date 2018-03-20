@@ -7,7 +7,5 @@
     - device-mapper-persistent-data
   tags:
     - base
-- name: 'Network'
-  import_tasks: network.yml
 - name: 'Docker'
   import_tasks: docker.yml
