@@ -1,11 +1,5 @@
-- name: 'CentOS | Install packages'
-  yum: 
-    name: "{{ item }}"
-  with_items:
-    - epel-release
-    - yum-utils
-    - device-mapper-persistent-data
-  tags:
-    - base
-- name: 'Docker'
-  import_tasks: docker.yml
+- include_tasks: centos.yml
+  when: ansible_distribution == 'CentOS'
+- include_tasks: debian.yml
+  when: ansible_distribution == 'Debian'
+- include_tasks: all.yml
