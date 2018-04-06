@@ -1,0 +1,33 @@
+- name: Install requirements
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - python3
+    - python3-venv
+    - python3-pip
+  tags:
+    - docker
+- name: Add GPG key
+  apt_key:
+    id: 0EBFCD88
+    url: "https://download.docker.com/linux/{{ ansible_os_family | lower }}/gpg"
+    state: present
+  tags:
+    - docker
+- name: Add latest stable repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} stable"
+    state: present
+  tags:
+    - docker
+- name: Install app
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - docker-ce
+  tags:
+    - docker
