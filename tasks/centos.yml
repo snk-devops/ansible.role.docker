@@ -1,0 +1,20 @@
+- name: Install requirements
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - python3
+  tags:
+    - docker
+- name: Add repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/
+  tags:
+    - docker
+- name: Install app
+  yum: 
+    name: "{{ item }}"
+  with_items:
+    - docker-ce
+  tags:
+    - docker
