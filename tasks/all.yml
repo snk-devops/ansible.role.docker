@@ -1,0 +1,48 @@
+- name: docker-compose | Create venv
+  command: python3 -m venv --copies /opt/docker-compose
+  args:
+    creates: /opt/docker-compose/bin/python
+  tags:
+    - docker
+- name: docker-compose | Install app
+  pip:
+    name: "{{ item }}"
+    virtualenv: /opt/docker-compose
+  with_items:
+    - docker-compose
+  tags:
+    - docker
+- name: docker-compose | Create links
+  file:
+    src: /opt/docker-compose/bin/docker-compose
+    dest: /usr/local/bin/docker-compose
+    state: link
+  tags:
+    - docker
+
+
+- name: Create project folders
+  file:
+    path: /docker/apps/
+    state: directory
+  tags:
+    - docker
+- name: Create project links
+  file:
+    src: /var/lib/docker
+    dest: /docker/data
+    state: link
+    force: yes
+  tags:
+    - docker
+
+
+- name: "Configure unprivilege access for {{ ansible_user }}"
+  user:
+    name: "{{ item }}"
+    groups: docker
+    append: yes
+  with_items:
+    - "{{ ansible_user }}"
+  tags:
+    - docker
