@@ -1,8 +1,13 @@
+- name: Activate EPEL
+  yum: 
+    name: epel-release
+  tags:
+    - docker
 - name: Install requirements
   yum:
     name: "{{ item }}"
   with_items:
-    - python3
+    - python36
   tags:
     - docker
 - name: Add repository
