@@ -1,9 +1,4 @@
-- name: docker-compose | Create venv
-  command: python3.6 -m venv --copies /opt/docker-compose
-  args:
-    creates: /opt/docker-compose/bin/python
-  tags:
-    - docker
+---
 - name: docker-compose | Install app
   pip:
     name: "{{ item }}"
