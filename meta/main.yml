@@ -1,3 +1,3 @@
-description: Установка последней версии докера и настройка ноды
+description: Install and configure docker and docker-compose for CentOS/Debian
 author: Igor Voropaev <snake@itpc.ru>
 licence: MIT
