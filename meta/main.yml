@@ -1,3 +1,4 @@
-description: Install and configure docker and docker-compose for CentOS/Debian
-author: Igor Voropaev <snake@itpc.ru>
-licence: MIT
+galaxy_info:
+  description: Install and configure docker and docker-compose for CentOS/Debian
+  author: Igor Voropaev <snake@itpc.ru>
+  licence: MIT
