@@ -1,31 +1,27 @@
 - name: Activate EPEL
-  yum: 
+  dnf: 
     name: epel-release
-  tags:
-    - docker
-- name: Install requirements
-  yum:
-    name: "{{ item }}"
-  with_items:
-    - python36
-  tags:
+  tags: &TAGS
     - docker
 - name: Add repository
   get_url:
     url: https://download.docker.com/linux/centos/docker-ce.repo
     dest: /etc/yum.repos.d/
-  tags:
-    - docker
+  tags: *TAGS
 - name: Install app
-  yum: 
-    name: "{{ item }}"
-  with_items:
-    - docker-ce
-  tags:
-    - docker
+  dnf: 
+    name: 
+      - docker-ce
+      - python36
+  tags: *TAGS
+
 - name: docker-compose | Create venv
-  command: python3.6 -m venv --copies /opt/docker-compose
+  command: python36 -m venv --copies /opt/docker-compose
   args:
     creates: /opt/docker-compose/bin/python
-  tags:
-    - docker
+  tags: *TAGS
+- name: docker-compose | Install app
+  command: /opt/docker-compose/bin/pip install docker-compose
+  args:
+    creates: /opt/docker-compose/bin/docker-compose
+  tags: *TAGS

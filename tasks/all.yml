@@ -1,36 +1,24 @@
 ---
-- name: docker-compose | Install app
-  pip:
-    name: "{{ item }}"
-    virtualenv: /opt/docker-compose
-  with_items:
-    - docker-compose
-  tags:
-    - docker
 - name: docker-compose | Create links
   file:
     src: /opt/docker-compose/bin/docker-compose
     dest: /usr/local/bin/docker-compose
     state: link
-  tags:
+  tags: &TAGS
     - docker
-
 
 - name: Create project folders
   file:
     path: /docker/apps/
     state: directory
-  tags:
-    - docker
+  tags: *TAGS
 - name: Create project links
   file:
     src: /var/lib/docker
     dest: /docker/data
     state: link
     force: yes
-  tags:
-    - docker
-
+  tags: *TAGS
 
 - name: "Configure unprivilege access for {{ ansible_user }}"
   user:
@@ -39,5 +27,4 @@
     append: yes
   with_items:
     - "{{ ansible_user }}"
-  tags:
-    - docker
+  tags: *TAGS
