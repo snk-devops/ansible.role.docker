@@ -1,4 +1,4 @@
-- name: Install requirements
+- name: docker | Install requirements
   apt:
     name: "{{ item }}"
   with_items:
@@ -6,36 +6,22 @@
     - ca-certificates
     - curl
     - gnupg2
-    - python3
-    - python3-venv
-    - python3-pip
   tags: &TAGS
     - docker
-- name: Add GPG key
+- name: docker | Add GPG key
   apt_key:
     id: 0EBFCD88
     url: "https://download.docker.com/linux/{{ ansible_os_family | lower }}/gpg"
     state: present
   tags: *TAGS
-- name: Add latest stable repository
+- name: docker | Add latest stable repository
   apt_repository:
     repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} stable"
     state: present
   tags: *TAGS
-- name: Install app
+- name: docker | Install app
   apt:
     name: "{{ item }}"
   with_items:
     - docker-ce
-  tags: *TAGS
-
-- name: docker-compose | Create venv
-  command: python3 -m venv --copies /opt/docker-compose
-  args:
-    creates: /opt/docker-compose/bin/python
-  tags: *TAGS
-- name: docker-compose | Install app
-  pip:
-    name: docker-compose
-    executable: /opt/docker-compose/bin/pip
   tags: *TAGS

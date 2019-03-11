@@ -1,12 +1,10 @@
----
-- name: docker-compose | Create links
-  file:
-    src: /opt/docker-compose/bin/docker-compose
-    dest: /usr/local/bin/docker-compose
-    state: link
+- include_tasks: centos.yml
+  when: ansible_distribution == 'CentOS'
   tags: &TAGS
     - docker
-
+- include_tasks: debian.yml
+  when: ansible_distribution == 'Debian'
+  tags: *TAGS
 - name: Create project folders
   file:
     path: /docker/apps/

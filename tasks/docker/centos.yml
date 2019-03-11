@@ -1,0 +1,15 @@
+- name: docker | Activate EPEL
+  yum: 
+    name: epel-release
+  tags: &TAGS
+    - docker
+- name: docker | Add repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/
+  tags: *TAGS
+- name: docker | Install app
+  yum: 
+    name: 
+      - docker-ce
+  tags: *TAGS
