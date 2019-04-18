@@ -1,0 +1,19 @@
+- name: docker | Install requirements
+  apt:
+    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2']
+  tags: &TAGS
+    - docker
+- name: docker | Add GPG key
+  apt_key:
+    url: "https://download.docker.com/linux/{{ ansible_lsb.id | lower }}/gpg"
+    state: present
+  tags: *TAGS
+- name: docker | Add latest stable repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} stable"
+    state: present
+  tags: *TAGS
+- name: docker | Install app
+  apt:
+    name: docker-ce
+  tags: *TAGS

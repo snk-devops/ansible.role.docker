@@ -5,6 +5,9 @@
 - include_tasks: debian.yml
   when: ansible_distribution == 'Debian'
   tags: *TAGS
+- include_tasks: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+  tags: *TAGS
 - name: Create project folders
   file:
     path: /docker/apps/
