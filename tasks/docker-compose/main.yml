@@ -20,3 +20,12 @@
     dest: /usr/local/bin/docker-compose
     state: link
   tags: *TAGS
+- name: docker | Install pip
+  yum: 
+    name:
+      - python-pip
+  tags: *TAGS
+- name: docker | Install SDK
+  pip: 
+    name: docker-compose
+  tags: *TAGS

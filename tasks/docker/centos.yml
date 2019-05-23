@@ -12,4 +12,9 @@
   yum: 
     name: 
       - docker-ce
+      - python-pip
+  tags: *TAGS
+- name: docker | Install SDK
+  pip:
+    name: docker
   tags: *TAGS
