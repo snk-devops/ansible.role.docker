@@ -2,7 +2,7 @@ galaxy_info:
   role_name: docker
   description: Install and configure docker and docker-compose for CentOS/Debian
   author: Igor Voropaev <snakework10@gmail.com>
-  licence: MIT
+  license: MIT
   min_ansible_version: 2.6
   platforms:
     - name: EL
@@ -14,5 +14,8 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
+  galaxy_tags:
+    - docker
+    - docker-compose
 
   
