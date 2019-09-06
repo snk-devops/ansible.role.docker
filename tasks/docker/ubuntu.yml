@@ -1,6 +1,10 @@
 - name: docker | Install requirements
   apt:
-    name: ['apt-transport-https', 'ca-certificates', 'curl', 'gnupg2']
+    name: 
+      - 'apt-transport-https'
+      - 'ca-certificates'
+      - 'curl'
+      - 'gnupg2'
   tags: &TAGS
     - docker
 - name: docker | Add GPG key

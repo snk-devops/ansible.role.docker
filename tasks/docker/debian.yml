@@ -5,6 +5,7 @@
       - ca-certificates
       - curl
       - gnupg2
+      - python3-pip
   tags: &TAGS
     - docker
 - name: docker | Add GPG key
@@ -21,8 +22,4 @@
 - name: docker | Install app
   apt:
     name: docker-ce
-  tags: *TAGS
-- name: docker | Install pip
-  apt: 
-    name: python3-pip
   tags: *TAGS
