@@ -29,3 +29,11 @@
   with_items:
     - "{{ ansible_user }}"
   tags: *TAGS
+
+- name: Start docker at boot
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+  when: docker_autostart
+  tags: *TAGS
