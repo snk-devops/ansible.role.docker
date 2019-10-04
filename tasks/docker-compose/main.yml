@@ -14,14 +14,18 @@
     owner: "{{ ansible_user }}"
     mode: 0755
   tags: *TAGS
+- name: docker-compose  | Install SDK
+  pip: 
+    name: docker-compose
+  tags: *TAGS
+- name: docker-compose | Remove SDK app link
+  file:
+    path: /usr/local/bin/docker-compose
+    state: absent
+  tags: *TAGS
 - name: docker-compose | Create links
   file:
     src: /opt/docker-compose/docker-compose
     dest: /usr/local/bin/docker-compose
     state: link
-  tags: *TAGS
-
-- name: docker | Install SDK
-  pip: 
-    name: docker-compose
   tags: *TAGS
