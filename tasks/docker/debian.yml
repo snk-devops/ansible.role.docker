@@ -6,6 +6,7 @@
       - curl
       - gnupg2
       - python3-pip
+      - python-pip
   tags: &TAGS
     - docker
 - name: docker | Add GPG key
