@@ -1,13 +1,17 @@
-- include_tasks: centos.yml
+- name: docker | Setup on CentOS
+  include_tasks: centos.yml
   when: ansible_distribution == 'CentOS'
   tags: &TAGS
     - docker
-- include_tasks: debian.yml
+- name: docker | Setup on Debian
+  include_tasks: debian.yml
   when: ansible_distribution == 'Debian'
   tags: *TAGS
-- include_tasks: ubuntu.yml
+- name: docker | Setup on Ubuntu
+  include_tasks: ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
   tags: *TAGS
+
 - name: Create project folders
   file:
     path: /docker/apps/
