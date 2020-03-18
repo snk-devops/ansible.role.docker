@@ -1,3 +1,5 @@
 docker_compose_version: 1.25.4
 docker_compose_checksum: 542e93b1d5106d2769b325f60ba9a0ba087bb96e30dc2c1cb026f0cb642e9aed
-docker_autostart: false
+
+docker_daemon_config: no
+docker_daemon_config_file: daemon.json

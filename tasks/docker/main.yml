@@ -41,3 +41,10 @@
     state: started
   when: docker_autostart
   tags: *TAGS
+
+- name: Create docker daemon custom configuration
+  template:
+    src: "docker/{{ docker_daemon_config_file }}"
+    dest: "/etc/docker/daemon.json"
+  when: docker_daemon_config
+  tags: *TAGS
