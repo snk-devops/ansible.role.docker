@@ -48,3 +48,12 @@
     dest: "/etc/docker/daemon.json"
   when: docker_daemon_config
   tags: *TAGS
+
+- name: Docker authorization
+  command: docker login -u {{ item.user }} -p {{ item.password }} {{ item.registry }}
+  loop: "{{ docker_auth_registries }}"
+  loop_control:
+    label: "{{ item.registry }}"
+  when: docker_auth
+  become: "{{ ansible_user }}"
+  tags: *TAGS

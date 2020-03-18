@@ -3,3 +3,6 @@ docker_compose_checksum: 542e93b1d5106d2769b325f60ba9a0ba087bb96e30dc2c1cb026f0c
 
 docker_daemon_config: no
 docker_daemon_config_file: daemon.json
+
+docker_auth: no
+docker_auth_registries: []
