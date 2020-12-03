@@ -1,59 +1,50 @@
-- name: docker | Setup on CentOS
-  include_tasks: centos.yml
-  when: ansible_distribution == 'CentOS'
-  tags: &TAGS
-    - docker
-- name: docker | Setup on Debian
-  include_tasks: debian.yml
-  when: ansible_distribution == 'Debian'
-  tags: *TAGS
-- name: docker | Setup on Ubuntu
-  include_tasks: ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
-  tags: *TAGS
-
 - name: Create project folders
+  tags: &tags
+    - always
   file:
-    path: /docker/apps/
+    path: "{{ item }}"
     state: directory
-  tags: *TAGS
+  loop:
+    - /etc/docker
+    - /docker/apps
+    - /docker/volumes
 - name: Create project links
+  tags: *tags
   file:
     src: /var/lib/docker
     dest: /docker/data
     state: link
     force: yes
-  tags: *TAGS
 
 - name: "Configure unprivilege access for {{ ansible_user }}"
+  tags: *tags
   user:
     name: "{{ item }}"
-    groups: docker
+    groups:
+      - docker
     append: yes
+  when: docker_access
   with_items:
     - "{{ ansible_user }}"
-  tags: *TAGS
 
 - name: Start docker at boot
+  tags: *tags
   systemd:
     name: docker
     enabled: yes
     state: started
   when: docker_autostart
-  tags: *TAGS
-
 - name: Create docker daemon custom configuration
+  tags: *tags
   template:
     src: "docker/{{ docker_daemon_config_file }}"
     dest: "/etc/docker/daemon.json"
   when: docker_daemon_config
-  tags: *TAGS
-
 - name: Docker authorization
+  tags: *tags
   command: docker login -u {{ item.user }} -p {{ item.password }} {{ item.registry }}
   loop: "{{ docker_auth_registries }}"
   loop_control:
     label: "{{ item.registry }}"
   when: docker_auth
   become: "{{ ansible_user }}"
-  tags: *TAGS

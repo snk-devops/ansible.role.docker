@@ -1,31 +1,30 @@
 - name: docker-compose | Create folder
+  tags: &tags
+    - always
   file:
     path: /opt/docker-compose
     state: directory
     owner: "{{ ansible_user }}"
-  tags: &TAGS
-    - docker-compose
-    - compose
 - name: docker-compose | Get file
+  tags: *tags
   get_url:
     url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
     dest: /opt/docker-compose/docker-compose
     checksum: "sha256:{{ docker_compose_checksum }}"
     owner: "{{ ansible_user }}"
     mode: 0755
-  tags: *TAGS
-- name: docker-compose  | Install SDK
-  pip: 
+- name: docker-compose | Install SDK
+  tags: *tags
+  pip:
     name: docker-compose
-  tags: *TAGS
 - name: docker-compose | Remove SDK app link
+  tags: *tags
   file:
     path: /usr/local/bin/docker-compose
     state: absent
-  tags: *TAGS
 - name: docker-compose | Create links
+  tags: *tags
   file:
     src: /opt/docker-compose/docker-compose
     dest: /usr/local/bin/docker-compose
     state: link
-  tags: *TAGS
