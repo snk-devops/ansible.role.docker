@@ -42,9 +42,13 @@
   when: docker_daemon_config
 - name: Docker authorization
   tags: *tags
-  command: docker login -u {{ item.user }} -p {{ item.password }} {{ item.registry }}
+  docker_login:
+    registry_url: "{{ item.registry }}"
+    username: "{{ item.user }}"
+    password: "{{ item.password }}"
   loop: "{{ docker_auth_registries }}"
   loop_control:
-    label: "{{ item.registry }}"
+    label: "{{ item.registry }} - {{ item.user }}"
   when: docker_auth
-  become: "{{ ansible_user }}"
+  become: yes
+  become_user: "{{ ansible_user }}"
