@@ -13,15 +13,16 @@
     checksum: "sha256:{{ docker_compose_checksum }}"
     owner: "{{ ansible_user }}"
     mode: 0755
-- name: docker-compose | Install SDK
+
+- name: docker-compose | Setup on Alpine
   tags: *tags
-  pip:
-    name: docker-compose
-- name: docker-compose | Remove SDK app link
+  include_tasks: os.alpine.yml
+  when: ansible_distribution == 'Alpine'
+- name: docker-compose | Setup default
   tags: *tags
-  file:
-    path: /usr/local/bin/docker-compose
-    state: absent
+  include_tasks: os.default.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
 - name: docker-compose | Create links
   tags: *tags
   file:

@@ -1,0 +1,28 @@
+- name: docker-compose | Install build-tools
+  tags: &tags
+    - always
+  community.general.apk:
+    name: "{{ item }}"
+    state: latest
+  loop: &build-packages
+    - build-base
+    - python3-dev
+    - libffi-dev
+    - openssl-dev
+- name: docker-compose | Install SDK
+  tags: *tags
+  pip:
+    name: docker-compose
+  async: 1000
+  poll: 5
+- name: docker-compose | Remove build-tools
+  tags: *tags
+  community.general.apk:
+    name: "{{ item }}"
+    state: absent
+  loop: *build-packages
+- name: docker-compose | Remove SDK app link
+  tags: *tags
+  file:
+    path: /usr/local/bin/docker-compose
+    state: absent

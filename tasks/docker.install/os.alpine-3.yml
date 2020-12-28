@@ -1,0 +1,22 @@
+- name: docker | unpack file
+  tags: &TAGS
+    - always
+  unarchive:
+    src: https://download.docker.com/linux/static/stable/x86_64/docker-{{ docker_version }}.tgz
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: 755
+    extra_opts:
+      - --strip-components=1
+- name: docker | create config and startup files
+  tags: *TAGS
+  copy:
+    src: docker/alpine/{{ item.src }}
+    dest: /etc/{{ item.target }}
+    mode: "{{ item.mode | default(None) }}"
+  loop:
+    - src: docker.confd.conf
+      target: conf.d/docker
+    - src: docker.initd.rc
+      target: init.d/docker
+      mode: 755

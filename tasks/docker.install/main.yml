@@ -15,3 +15,7 @@
   tags: *tags
   include_tasks: os.ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
+- name: docker | Setup on Alpine 3.x
+  tags: *tags
+  include_tasks: os.alpine-3.yml
+  when: ansible_distribution == 'Alpine' and ansible_distribution_major_version == '3'

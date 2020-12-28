@@ -16,7 +16,7 @@
     state: link
     force: yes
 
-- name: "Configure unprivilege access for {{ ansible_user }}"
+- name: "Configure unprivilege access"
   tags: *tags
   user:
     name: "{{ item }}"
@@ -24,16 +24,16 @@
       - docker
     append: yes
   when: docker_access
-  with_items:
-    - "{{ ansible_user }}"
+  loop: "{{ docker_access_users }}"
 
 - name: Start docker at boot
   tags: *tags
-  systemd:
+  service:
     name: docker
     enabled: yes
     state: started
   when: docker_autostart
+
 - name: Create docker daemon custom configuration
   tags: *tags
   template:

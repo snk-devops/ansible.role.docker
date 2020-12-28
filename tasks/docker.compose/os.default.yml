@@ -1,0 +1,10 @@
+- name: docker-compose | Install SDK
+  tags: &tags
+    - always
+  pip:
+    name: docker-compose
+- name: docker-compose | Remove SDK app link
+  tags: *tags
+  file:
+    path: /usr/local/bin/docker-compose
+    state: absent

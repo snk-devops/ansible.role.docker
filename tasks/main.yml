@@ -1,14 +1,16 @@
-- name: docker - install
+- name: docker | Install
   include_tasks: docker.install/main.yml
   tags:
     - docker.install
     - docker-install
-- name: docker - config
+- name: docker | Config
   include_tasks: docker.config/main.yml
   tags:
     - docker
-- name: docker-compose
-  include_tasks: docker-compose/main.yml
+    - docker.config
+- name: docker | Install compose
+  include_tasks: docker.compose/main.yml
   tags:
     - docker-compose
+    - docker.compose
     - compose
