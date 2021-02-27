@@ -15,6 +15,7 @@
     name: docker-compose
   async: 1000
   poll: 5
+  when: docker_sdk
 - name: docker-compose | Remove build-tools
   tags: *tags
   community.general.apk:
@@ -26,3 +27,4 @@
   file:
     path: /usr/local/bin/docker-compose
     state: absent
+  when: docker_sdk

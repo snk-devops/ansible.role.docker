@@ -12,3 +12,5 @@ docker_auth_registries: []
 
 docker_access: no
 docker_access_users: []
+
+docker_sdk: yes

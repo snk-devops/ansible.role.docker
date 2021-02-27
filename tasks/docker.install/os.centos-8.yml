@@ -19,3 +19,4 @@
   tags: *tags
   pip:
     name: docker
+  when: docker_sdk
