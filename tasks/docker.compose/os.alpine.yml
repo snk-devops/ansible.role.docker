@@ -15,16 +15,9 @@
     name: docker-compose
   async: 1000
   poll: 5
-  when: docker_sdk
 - name: docker-compose | Remove build-tools
   tags: *tags
   community.general.apk:
     name: "{{ item }}"
     state: absent
   loop: *build-packages
-- name: docker-compose | Remove SDK app link
-  tags: *tags
-  file:
-    path: /usr/local/bin/docker-compose
-    state: absent
-  when: docker_sdk

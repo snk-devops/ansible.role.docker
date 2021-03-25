@@ -23,9 +23,4 @@
   include_tasks: os.default.yml
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- name: docker-compose | Create links
-  tags: *tags
-  file:
-    src: /opt/docker-compose/docker-compose
-    dest: /usr/local/bin/docker-compose
-    state: link
+
