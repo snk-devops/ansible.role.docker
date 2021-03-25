@@ -1,6 +1,15 @@
-- name: docker-compose | Install SDK
+- name: docker-compose | Get file
   tags: &tags
     - always
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+    dest: /opt/docker-compose/docker-compose
+    checksum: "sha256:{{ docker_compose_checksum }}"
+    owner: "{{ ansible_user }}"
+    mode: 0755
+
+- name: docker-compose | Install SDK
+  tags: *tags
   pip:
     name: docker-compose
   when: docker_sdk

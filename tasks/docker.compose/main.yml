@@ -5,22 +5,12 @@
     path: /opt/docker-compose
     state: directory
     owner: "{{ ansible_user }}"
-- name: docker-compose | Get file
-  tags: *tags
-  get_url:
-    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
-    dest: /opt/docker-compose/docker-compose
-    checksum: "sha256:{{ docker_compose_checksum }}"
-    owner: "{{ ansible_user }}"
-    mode: 0755
 
-- name: docker-compose | Setup on Alpine
+- name: docker-compose | {{ docker_compose_version }} | Setup on Alpine
   tags: *tags
   include_tasks: os.alpine.yml
   when: ansible_distribution == 'Alpine'
-- name: docker-compose | Setup default
+- name: docker-compose | {{ docker_compose_version }} | Setup default
   tags: *tags
   include_tasks: os.default.yml
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
-
-
