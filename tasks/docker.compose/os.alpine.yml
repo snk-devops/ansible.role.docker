@@ -9,6 +9,7 @@
     - python3-dev
     - libffi-dev
     - openssl-dev
+    - cargo
 - name: docker-compose | Install SDK
   tags: *tags
   pip:
