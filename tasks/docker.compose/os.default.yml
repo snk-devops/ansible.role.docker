@@ -19,6 +19,7 @@
     path: /usr/local/bin/docker-compose
     state: absent
   when: docker_sdk
+
 - name: docker-compose | Create links
   tags: *tags
   file:
