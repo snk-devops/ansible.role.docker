@@ -1,6 +1,14 @@
-- name: docker-compose | Install build-tools
+- name: docker-compose | Get file
   tags: &tags
     - always
+  get_url:
+    url: https://pkg.itpc.dev/docker-compose/alpine/{{ docker_compose_version }}/docker-compose
+    dest: /opt/docker-compose/docker-compose
+    owner: "{{ ansible_user }}"
+    mode: 0755
+
+- name: docker-compose | Install build-tools
+  tags: *tags
   community.general.apk:
     name: "{{ item }}"
     state: latest
@@ -9,15 +17,26 @@
     - python3-dev
     - libffi-dev
     - openssl-dev
+    - cargo
+  when: docker_sdk
 - name: docker-compose | Install SDK
   tags: *tags
   pip:
     name: docker-compose
   async: 1000
   poll: 5
+  when: docker_sdk
 - name: docker-compose | Remove build-tools
   tags: *tags
   community.general.apk:
     name: "{{ item }}"
     state: absent
   loop: *build-packages
+  when: docker_sdk
+
+- name: docker-compose | Create links
+  tags: *tags
+  file:
+    src: /opt/docker-compose/docker-compose
+    dest: /usr/local/bin/docker-compose
+    state: link
