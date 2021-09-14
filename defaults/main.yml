@@ -14,3 +14,4 @@ docker_access: no
 docker_access_users: []
 
 docker_sdk: yes
+docker_compose_sdk: yes

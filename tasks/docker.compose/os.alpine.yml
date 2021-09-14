@@ -18,21 +18,21 @@
     - libffi-dev
     - openssl-dev
     - cargo
-  when: docker_sdk
+  when: docker_compose_sdk
 - name: docker-compose | Install SDK
   tags: *tags
   pip:
     name: docker-compose
   async: 1000
   poll: 5
-  when: docker_sdk
+  when: docker_compose_sdk
 - name: docker-compose | Remove build-tools
   tags: *tags
   community.general.apk:
     name: "{{ item }}"
     state: absent
   loop: *build-packages
-  when: docker_sdk
+  when: docker_compose_sdk
 
 - name: docker-compose | Create links
   tags: *tags

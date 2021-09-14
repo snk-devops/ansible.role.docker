@@ -12,13 +12,13 @@
   tags: *tags
   pip:
     name: docker-compose
-  when: docker_sdk
+  when: docker_compose_sdk
 - name: docker-compose | Remove SDK app link
   tags: *tags
   file:
     path: /usr/local/bin/docker-compose
     state: absent
-  when: docker_sdk
+  when: docker_compose_sdk
 
 - name: docker-compose | Create links
   tags: *tags
