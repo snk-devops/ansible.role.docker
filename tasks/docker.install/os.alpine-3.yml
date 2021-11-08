@@ -20,3 +20,8 @@
     - src: docker.initd.rc
       target: init.d/docker
       mode: 755
+- name: docker | Install SDK
+  tags: *TAGS
+  pip:
+    name: docker
+  when: docker_sdk

@@ -40,6 +40,7 @@
     src: "docker/{{ docker_daemon_config_file }}"
     dest: "/etc/docker/daemon.json"
   when: docker_daemon_config
+
 - name: Docker authorization
   tags: *tags
   docker_login:
