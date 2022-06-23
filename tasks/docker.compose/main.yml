@@ -9,8 +9,13 @@
 - name: docker-compose | {{ docker_compose_version }} | Setup on Alpine
   tags: *tags
   include_tasks: os.alpine.yml
-  when: ansible_distribution == 'Alpine'
+  when: ansible_distribution == 'Alpine' and not docker_compose_v2 
 - name: docker-compose | {{ docker_compose_version }} | Setup default
   tags: *tags
   include_tasks: os.default.yml
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+  when: (ansible_distribution == 'CentOS' or ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu') and not docker_compose_v2 
+
+- name: docker-compose | {{ docker_compose_version }} | Setup v2
+  tags: *tags
+  include_tasks: os.v2.yml
+  when: docker_compose_v2 

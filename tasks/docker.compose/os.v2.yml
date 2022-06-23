@@ -1,0 +1,15 @@
+- name: get file
+  tags: &tags
+    - always
+  get_url:
+    url: https://pkg.itpc.dev/docker-compose/{{ docker_compose_version }}/docker-compose.amd64
+    dest: /opt/docker-compose/docker-compose
+    owner: "{{ ansible_user }}"
+    mode: 0755
+
+- name: create links
+  tags: *tags
+  file:
+    src: /opt/docker-compose/docker-compose
+    dest: /usr/local/bin/docker-compose
+    state: link
