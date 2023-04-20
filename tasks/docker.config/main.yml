@@ -14,7 +14,7 @@
     src: /var/lib/docker
     dest: /docker/data
     state: link
-    force: yes
+    force: true
 
 - name: "Configure unprivilege access"
   tags: *tags
@@ -22,7 +22,7 @@
     name: "{{ item }}"
     groups:
       - docker
-    append: yes
+    append: true
   when: docker_access
   loop: "{{ docker_access_users }}"
 
@@ -50,6 +50,6 @@
   loop: "{{ docker_auth_registries }}"
   loop_control:
     label: "{{ item.registry }} - {{ item.user }}"
-  when: docker_auth
-  become: yes
+  when: docker_auth and startup_init is not defined
+  become: true
   become_user: "{{ ansible_user }}"
