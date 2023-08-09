@@ -1,4 +1,4 @@
-- name: get file
+- name: get file | amd64
   tags: &tags
     - always
   get_url:
@@ -6,6 +6,15 @@
     dest: /opt/docker-compose/docker-compose
     owner: "{{ ansible_user }}"
     mode: 0755
+  when: ansible_architecture == 'x86_64'
+- name: get file | arm64
+  tags: *tags
+  get_url:
+    url: https://pkg.itpc.dev/docker-compose/{{ docker_compose_version }}/docker-compose.arm64
+    dest: /opt/docker-compose/docker-compose
+    owner: "{{ ansible_user }}"
+    mode: 0755
+  when: ansible_architecture == 'aarch64'
 
 - name: create links
   tags: *tags
