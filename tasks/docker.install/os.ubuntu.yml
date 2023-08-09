@@ -1,6 +1,6 @@
 - name: docker | Install requirements
   apt:
-    name: 
+    name:
       - apt-transport-https
       - ca-certificates
       - curl
@@ -15,7 +15,7 @@
   tags: *TAGS
 - name: docker | Add latest stable repository
   apt_repository:
-    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} stable"
+    repo: "deb https://download.docker.com/linux/{{ ansible_lsb.id | lower }} {{ ansible_lsb.codename }} stable"
     state: present
   tags: *TAGS
 - name: docker | Install app
