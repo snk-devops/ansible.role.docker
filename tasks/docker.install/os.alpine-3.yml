@@ -8,6 +8,7 @@
     mode: 755
     extra_opts:
       - --strip-components=1
+  notify: restart docker
 - name: docker | create config and startup files
   tags: *TAGS
   copy:
