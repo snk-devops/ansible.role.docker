@@ -8,7 +8,6 @@
   include_tasks: docker.config/main.yml
   tags:
     - docker
-    - docker
     - docker.config
 - name: docker | Install compose
   include_tasks: docker.compose/main.yml
@@ -17,3 +16,8 @@
     - docker-compose
     - docker.compose
     - compose
+- name: docker | Plugins
+  include_tasks: docker.plugins/main.yml
+  tags:
+    - docker
+    - docker.plugins
