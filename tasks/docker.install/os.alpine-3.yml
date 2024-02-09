@@ -23,6 +23,7 @@
       mode: 755
 - name: docker | Install SDK
   tags: *TAGS
-  pip:
-    name: docker
+  ansible.builtin.apk:
+    name:
+      - py3-requests  # https://github.com/docker/docker-py/issues/3113
   when: docker_sdk
