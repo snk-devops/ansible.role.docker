@@ -1,24 +1,25 @@
 - name: Create project folders
   tags: &tags
     - always
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
+    mode: "0755"
   loop:
     - /etc/docker
     - /docker/apps
     - /docker/volumes
 - name: Create project links
   tags: *tags
-  file:
+  ansible.builtin.file:
     src: /var/lib/docker
     dest: /docker/data
     state: link
     force: true
 
-- name: "Configure unprivilege access"
+- name: Configure unprivilege access
   tags: *tags
-  user:
+  ansible.builtin.user:
     name: "{{ item }}"
     groups:
       - docker
@@ -28,22 +29,23 @@
 
 - name: Start docker at boot
   tags: *tags
-  service:
+  ansible.builtin.service:
     name: docker
-    enabled: yes
+    enabled: true
     state: started
   when: docker_autostart
 
 - name: Create docker daemon custom configuration
   tags: *tags
-  template:
+  ansible.builtin.template:
     src: "docker/{{ docker_daemon_config_file }}"
     dest: "/etc/docker/daemon.json"
+    mode: "0644"
   when: docker_daemon_config
 
 - name: Docker authorization
   tags: *tags
-  docker_login:
+  community.docker.docker_login:
     registry_url: "{{ item.registry }}"
     username: "{{ item.user }}"
     password: "{{ item.password }}"

@@ -2,17 +2,16 @@ docker_version: 20.10.5
 
 docker_compose_v2: true
 docker_compose_version: 2.5.1
-docker_compose_checksum: f5f7d605fa17d35a29b217557db4cbe70c1824f3061c522d3cb712bf33db3a67
-docker_autostart: no
+docker_autostart: false
 
-docker_daemon_config: yes
+docker_daemon_config: true
 docker_daemon_config_file: daemon.json
 
-docker_auth: no
+docker_auth: false
 docker_auth_registries: []
 
-docker_access: no
+docker_access: false
 docker_access_users: []
 
-docker_sdk: yes
-docker_compose_sdk: yes
+docker_sdk: true
+docker_compose_sdk: true
